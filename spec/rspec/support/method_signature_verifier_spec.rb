@@ -833,6 +833,22 @@ module RSpec
               expect(valid_non_kw_args?(2)).to eq false
             end
           end
+
+          context 'when the Java class is package-protected' do
+            let(:test_method) { Java::OrgJrubyExtFfiJffi::NativeMemoryIO.instance_method(:equals) }
+
+            it 'validates against a single argument' do
+              expect(valid_non_kw_args?(1)).to eq true
+            end
+
+            it 'fails validation against 0 arguments' do
+              expect(valid_non_kw_args?(0)).to eq false
+            end
+
+            it 'fails validation against 2 arguments' do
+              expect(valid_non_kw_args?(2)).to eq false
+            end
+          end
         end
       end
 
